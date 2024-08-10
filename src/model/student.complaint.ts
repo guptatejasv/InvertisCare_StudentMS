@@ -9,6 +9,7 @@ export interface IComplaint extends Document {
     photo: string[];
     video: string[];
   };
+  type: string;
   status: string; // Status of the complaint (e.g., "Pending", "Resolved")
   createdAt: Date; // Timestamp when the complaint was filed
   updatedAt: Date; // Timestamp when the complaint was last updated
@@ -37,6 +38,10 @@ const ComplaintSchema: Schema = new Schema(
       type: String,
       required: true,
       trim: true,
+    },
+    type: {
+      type: String,
+      required: true,
     },
     evidance: {
       photo: {

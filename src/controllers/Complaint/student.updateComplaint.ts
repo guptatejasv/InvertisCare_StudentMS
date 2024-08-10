@@ -25,33 +25,35 @@ export const updateComplaint = async (req: Request, res: Response) => {
         });
       }
     }
+    if (complaint?.status == "pending") {
+      const storeUpdateComp = await UpdatedComplaint.create({
+        studentRefId: complaint?.studentRefId,
+        complaintId: complaint?._id,
+        subject: complaint?.subject,
+        type: complaint?.type,
+        description: complaint?.description,
+        evidance: complaint?.evidance,
+        isDeleted: complaint?.isDeleted,
+        isBlocked: complaint?.isBlocked,
+      });
 
-    const storeUpdateComp = await UpdatedComplaint.create({
-      studentRefId: complaint?.studentRefId,
-      complaintId: complaint?._id,
-      subject: complaint?.subject,
-      description: complaint?.description,
-      evidance: complaint?.evidance,
-      isDeleted: complaint?.isDeleted,
-      isBlocked: complaint?.isBlocked,
-    });
+      console.log(storeUpdateComp);
+      const updateComplaint = await Complaint.findByIdAndUpdate(
+        compId,
+        req.body,
+        {
+          new: true,
+        }
+      );
 
-    console.log(storeUpdateComp);
-    const updateComplaint = await Complaint.findByIdAndUpdate(
-      compId,
-      req.body,
-      {
-        new: true,
-      }
-    );
-
-    res.status(200).json({
-      status: "success",
-      message: "Complaint updated successfully..",
-      data: {
-        updateComplaint,
-      },
-    });
+      res.status(200).json({
+        status: "success",
+        message: "Complaint updated successfully..",
+        data: {
+          updateComplaint,
+        },
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "fail",
