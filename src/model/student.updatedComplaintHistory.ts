@@ -1,8 +1,8 @@
-import mongoose, { Document, ObjectId, Schema, model } from "mongoose";
+import mongoose, { Document, ObjectId, Schema } from "mongoose";
 
 // Interface to represent a complaint document
 export interface IComplaint extends Document {
-  studentId: ObjectId; // ID of the student filing the complaint
+  studentRefId: ObjectId; // ID of the student filing the complaint
   complaintId: ObjectId;
   subject: string; // Brief subject or title of the complaint
   description: string; // Detailed description of the complaint
@@ -24,7 +24,7 @@ export interface IComplaint extends Document {
 // Define the Complaint schema
 const ComplaintSchema: Schema = new Schema(
   {
-    studentId: {
+    studentRefId: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Student",

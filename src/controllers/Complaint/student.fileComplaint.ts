@@ -15,6 +15,16 @@ export const fileComplaint = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
     const { subject, description, photo, video } = req.body;
+    const checkUser = await Student.findById(userId);
+    if (checkUser) {
+      if (checkUser.isDeleted == true || checkUser.isBlocked == true) {
+        return res.status(400).json({
+          status: "fail",
+          message:
+            "You can not update File Complaint, Your account is deleted or block!",
+        });
+      }
+    }
     if (!subject || !description) {
       return res.status(400).json({
         status: "fail",
@@ -22,7 +32,7 @@ export const fileComplaint = async (req: Request, res: Response) => {
       });
     }
     const complaint = await Complaint.create({
-      studentId: userId,
+      studentRefId: userId,
       subject,
       description,
       evidance: {

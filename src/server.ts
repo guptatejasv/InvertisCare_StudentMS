@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/student.db";
 import router from "./routes/student.routes";

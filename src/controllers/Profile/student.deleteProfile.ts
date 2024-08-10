@@ -1,11 +1,10 @@
 import { Request, Response } from "express";
 import { Student } from "../../model/student.user";
-import { json } from "stream/consumers";
 
 export const deleteProfile = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
-    const user = await Student.findByIdAndUpdate(userId, {
+    await Student.findByIdAndUpdate(userId, {
       isDeleted: true,
     });
 

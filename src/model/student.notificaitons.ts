@@ -1,7 +1,7 @@
-import mongoose, { Schema, Document, ObjectId, model } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface INotification extends Document {
-  studentId: string; // ID of the student the notification belongs to
+  studentRefId: string; // ID of the student the notification belongs to
   message: string; // The notification message
   type: string; // Type of notification (e.g., "Complaint Update", "Profile Change")
   read: boolean; // Whether the notification has been read
@@ -10,7 +10,7 @@ export interface INotification extends Document {
 
 const NotificationSchema: Schema = new Schema(
   {
-    studentId: {
+    studentRefId: {
       type: String,
       required: true,
     },

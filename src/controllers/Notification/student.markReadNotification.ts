@@ -1,15 +1,22 @@
 import { Request, Response } from "express";
-import Complaint from "../../model/student.complaint";
+import { Student } from "../../model/student.user";
 import Notification from "../../model/student.notificaitons";
 export const readNotification = async (req: Request, res: Response) => {
-  const studentId = req.params.id;
-  const notificationId = req.params.notificationId;
-
   try {
     const notificationId = req.body.id;
     const userId = req.user.id;
+    const checkUser = await Student.findById(userId);
+    if (checkUser) {
+      if (checkUser.isDeleted == true || checkUser.isBlocked == true) {
+        return res.status(400).json({
+          status: "fail",
+          message:
+            "You can not update your profile, Your account is deleted or block!",
+        });
+      }
+    }
     const notification = await Notification.findOneAndUpdate(
-      { _id: notificationId, studentId: userId },
+      { _id: notificationId, studentRefId: userId },
       { read: true },
       { new: true }
     );
@@ -29,7 +36,7 @@ export const readNotification = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({
       status: "fail",
-      message: "Error marking notification as read.",
+      message: err,
     });
   }
 };
