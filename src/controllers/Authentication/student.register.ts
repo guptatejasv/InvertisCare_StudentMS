@@ -41,7 +41,7 @@ export const register = async (req: Request, res: Response) => {
     // General error response
     res.status(500).json({
       status: "fail",
-      message: err || "An error occurred during registration.",
+      message: err || "Error: An error occurred during registration.",
     });
   }
 };

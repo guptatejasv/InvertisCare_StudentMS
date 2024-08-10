@@ -30,6 +30,7 @@ export const login = async (req: Request, res: Response) => {
     const token = sign({ id: user._id }, secret, {
       expiresIn: "90d",
     });
+    // localStorage.setItem("authToken", token);
     if (user && isMatch) {
       res.status(200).json({
         status: "success",

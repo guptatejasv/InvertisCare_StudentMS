@@ -14,12 +14,13 @@ export const getProfile = async (req: Request, res: Response) => {
         });
       }
     }
-    const user = await Student.findById(userId).select("-password");
+    const user = await Student.findById(userId).select(
+      "-password -_id -updatedAt"
+    );
+    console.log(user);
     res.status(200).json({
       status: "success",
-      data: {
-        user,
-      },
+      user,
     });
   } catch (err) {
     res.status(400).json({

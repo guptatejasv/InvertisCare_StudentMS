@@ -24,7 +24,21 @@ export const fileComplaint = async (req: Request, res: Response) => {
             "You can not update File Complaint, Your account is deleted or block!",
         });
       }
+      if (
+        (checkUser.course ||
+          checkUser.year ||
+          checkUser.phone ||
+          checkUser.photo ||
+          checkUser.dob ||
+          checkUser.name) == null
+      ) {
+        return res.status(400).json({
+          status: "fail",
+          message: "Please complete your profile first",
+        });
+      }
     }
+
     if (!subject || !description) {
       return res.status(400).json({
         status: "fail",
