@@ -53,6 +53,11 @@ export const updateComplaint = async (req: Request, res: Response) => {
           updateComplaint,
         },
       });
+    } else {
+      return res.status(400).json({
+        status: "fail",
+        message: `Cann't update the complaint because complaint is in progress or resolved..`,
+      });
     }
   } catch (err) {
     res.status(400).json({
