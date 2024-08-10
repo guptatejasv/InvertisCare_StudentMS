@@ -15,6 +15,13 @@ export const readNotification = async (req: Request, res: Response) => {
         });
       }
     }
+    const notificationCheck = await Notification.findById(notificationId);
+    if (notificationCheck?.studentRefId.toString() !== userId) {
+      return res.status(400).json({
+        status: "fail",
+        message: "You are not authorized to mark this notification as read..",
+      });
+    }
     const notification = await Notification.findOneAndUpdate(
       { _id: notificationId, studentRefId: userId },
       { read: true },

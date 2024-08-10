@@ -17,7 +17,14 @@ export const updateComplaint = async (req: Request, res: Response) => {
       }
     }
     const complaint = await Complaint.findById(compId);
-    console.log(complaint);
+    if (complaint) {
+      if (complaint.studentRefId.toString() !== userId) {
+        return res.status(403).json({
+          status: "fail",
+          message: "You are not authorized to update this complaint.",
+        });
+      }
+    }
 
     const storeUpdateComp = await UpdatedComplaint.create({
       studentRefId: complaint?.studentRefId,

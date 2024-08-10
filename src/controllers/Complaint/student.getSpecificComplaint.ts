@@ -12,7 +12,15 @@ export const getSpecificComplaint = async (req: Request, res: Response) => {
         return res.status(400).json({
           status: "fail",
           message:
-            "You can not update your profile, Your account is deleted or block!",
+            "You can not get comlaint Detail, Your account is deleted or block!",
+        });
+      }
+    }
+    if (complaint) {
+      if (complaint.studentRefId.toString() !== userId) {
+        return res.status(403).json({
+          status: "fail",
+          message: "You are not authorized to get details of this complaint.",
         });
       }
     }
