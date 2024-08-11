@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
 export const fileComplaint = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
-    const { subject, description, photo, video, type } = req.body;
+    const { subject, description, assignedTo, photo, video, type } = req.body;
     const checkUser = await Student.findById(userId);
     if (checkUser) {
       if (checkUser.isDeleted == true || checkUser.isBlocked == true) {
@@ -50,6 +50,7 @@ export const fileComplaint = async (req: Request, res: Response) => {
       subject,
       description,
       type,
+      assignedTo,
       evidance: {
         photo,
         video,

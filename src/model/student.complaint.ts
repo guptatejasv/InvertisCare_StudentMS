@@ -9,6 +9,7 @@ export interface IComplaint extends Document {
     photo: string[];
     video: string[];
   };
+  assignedTo: ObjectId;
   type: string;
   status: string; // Status of the complaint (e.g., "Pending", "Resolved")
   createdAt: Date; // Timestamp when the complaint was filed
@@ -38,6 +39,11 @@ const ComplaintSchema: Schema = new Schema(
       type: String,
       required: true,
       trim: true,
+    },
+    assignedTo: {
+      type: Schema.Types.ObjectId,
+      ref: "HOD",
+      required: true,
     },
     type: {
       type: String,
