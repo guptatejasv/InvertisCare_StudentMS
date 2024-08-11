@@ -13,6 +13,7 @@ import { deleteComplaint } from "../controllers/Complaint/student.deleteComplain
 import { updateComplaint } from "../controllers/Complaint/student.updateComplaint";
 import { getNotifications } from "../controllers/Notification/student.getNotifications";
 import { readNotification } from "../controllers/Notification/student.markReadNotification";
+import { getComments } from "../controllers/Complaint/student.getComments";
 
 const router = Router();
 
@@ -29,5 +30,6 @@ router.delete("/student/deleteComplaint/:id", verify_token, deleteComplaint);
 router.patch("/student/updateComplaint/:id", verify_token, updateComplaint);
 router.get("/student/getNotifications", verify_token, getNotifications);
 router.patch("/student/readNotification/:id", verify_token, readNotification);
+router.get("/student/getComments/:id", verify_token, getComments);
 
 export default router;
