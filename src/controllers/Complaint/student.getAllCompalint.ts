@@ -21,14 +21,12 @@ export const getAllComplaint = async (req: Request, res: Response) => {
     res.status(200).json({
       status: "success",
       results: complaints.length,
-      data: {
-        complaints,
-      },
+      complaints,
     });
   } catch (err) {
     res.status(400).json({
       status: "fail",
-      message: err || "An error occurred during registration.",
+      message: err,
     });
   }
 };

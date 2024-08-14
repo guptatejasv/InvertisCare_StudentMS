@@ -1,38 +1,7 @@
-// import { Request, Response } from "express";
-// import Complaint from "../../model/student.complaint";
-// import { Student } from "../../model/student.user";
-// export const deleteComplaint = async (req: Request, res: Response) => {
-//   try {
-//     const userId = req.user.id;
-//     const checkUser = await Student.findById(userId);
-//     if (checkUser) {
-//       if (checkUser.isDeleted == true || checkUser.isBlocked == true) {
-//         return res.status(400).json({
-//           status: "fail",
-//           message:
-//             "You can not update delete complaint, Your account is deleted or block!",
-//         });
-//       }
-//     }
-
-//     const compId = req.params.id;
-//     await Complaint.findByIdAndUpdate(compId, {
-//       isDeleted: true,
-//     });
-//     res.status(200).json({
-//       status: "success",
-//       message: "Complaint Deleted Successfully..",
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       status: "fail",
-//       message: err || "An error occurred during registration.",
-//     });
-//   }
-// };
 import { Request, Response } from "express";
 import Complaint from "../../model/student.complaint";
 import { Student } from "../../model/student.user";
+import { transporter } from "../../helper/nodemailer";
 
 export const deleteComplaint = async (req: Request, res: Response) => {
   try {
@@ -69,7 +38,15 @@ export const deleteComplaint = async (req: Request, res: Response) => {
     // Mark the complaint as deleted
     complaint.isDeleted = true;
     await complaint.save();
-
+    const user = await Student.findById(userId);
+    if (user) {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: "InvertisCare: Complaint Deleted Confirmation",
+        text: `Your Complaint with this ${complaint._id} Complaint Id at InvertisCare is Deleted Successfully.`,
+      });
+    }
     res.status(200).json({
       status: "success",
       message: "Complaint Deleted Successfully.",

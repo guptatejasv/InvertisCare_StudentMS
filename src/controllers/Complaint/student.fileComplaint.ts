@@ -1,15 +1,7 @@
 import { Request, Response } from "express";
 import Complaint from "../../model/student.complaint";
-import nodemailer from "nodemailer";
+import { transporter } from "../../helper/nodemailer";
 import { Student } from "../../model/student.user";
-const transporter = nodemailer.createTransport({
-  host: "smtp.mailgun.org",
-  port: 587,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 export const fileComplaint = async (req: Request, res: Response) => {
   try {

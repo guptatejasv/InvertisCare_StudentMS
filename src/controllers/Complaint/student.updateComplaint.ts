@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Complaint from "../../model/student.complaint";
 import UpdatedComplaint from "../../model/student.updatedComplaintHistory";
 import { Student } from "../../model/student.user";
+import { transporter } from "../../helper/nodemailer";
 export const updateComplaint = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
@@ -25,7 +26,13 @@ export const updateComplaint = async (req: Request, res: Response) => {
         });
       }
     }
-    if (complaint?.status == "pending") {
+    if (complaint?.isDeleted == true) {
+      return res.status(400).json({
+        status: "fail",
+        message: "This complaint has been deleted, you can not update it",
+      });
+    }
+    if (complaint?.status == "Pending") {
       const storeUpdateComp = await UpdatedComplaint.create({
         studentRefId: complaint?.studentRefId,
         complaintId: complaint?._id,
@@ -45,7 +52,15 @@ export const updateComplaint = async (req: Request, res: Response) => {
           new: true,
         }
       );
-
+      const user = await Student.findById(userId);
+      if (user) {
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: user.email,
+          subject: "InvertisCare: Updated Complaint Details",
+          text: `You have successfully updated Complaint details with this ${complaint._id} Complaint Id at InvertisCare, Please Keep checking your mail for futher actions.`,
+        });
+      }
       res.status(200).json({
         status: "success",
         message: "Complaint updated successfully..",

@@ -18,9 +18,9 @@ import { getHODs } from "../controllers/Complaint/student.getHODs";
 
 const router = Router();
 
-router.post("/auth/register", register);
-router.post("/auth/login", login);
-router.post("/auth/logout", verify_token, logout);
+router.post("/auth/student/register", register);
+router.post("/auth/student/login", login);
+router.post("/auth/student/logout", verify_token, logout);
 router.get("/student/getProfile", verify_token, getProfile);
 router.patch("/student/updateProfile", verify_token, updateProfile);
 router.delete("/student/deleteProfile", verify_token, deleteProfile);

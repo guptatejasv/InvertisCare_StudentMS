@@ -34,6 +34,7 @@ const ComplaintSchema: Schema = new Schema(
       required: true,
       trim: true,
       maxlength: 100,
+      unique: true,
     },
     description: {
       type: String,
