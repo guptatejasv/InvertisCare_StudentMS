@@ -34,9 +34,11 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.1.0",
+    "@types/nodemon": "^1.19.6",
     "@types/ws": "^8.5.12",
     "eslint": "^9.8.0",
     "globals": "^15.9.0",
+    "nodemon": "^3.1.4",
     "typescript": "^5.5.4",
     "typescript-eslint": "^8.0.1"
   }
