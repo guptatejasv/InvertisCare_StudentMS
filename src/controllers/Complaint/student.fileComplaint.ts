@@ -3,11 +3,19 @@ import Complaint from "../../model/student.complaint";
 import { transporter } from "../../helper/nodemailer";
 import { Student } from "../../model/student.user";
 import HODNotification from "../../model/hod.notifications";
+import { HOD } from "../../model/official.HOD";
 
 export const fileComplaint = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
     const { subject, description, assignedTo, photo, video, type } = req.body;
+    const checkHod = await HOD.findById(assignedTo);
+    if (!checkHod) {
+      return res.status(400).json({
+        status: "fail",
+        message: "No HOD exist, Please choose another",
+      });
+    }
     const checkUser = await Student.findById(userId);
     if (checkUser) {
       if (checkUser.isDeleted == true || checkUser.isBlocked == true) {
