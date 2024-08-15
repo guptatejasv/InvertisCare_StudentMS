@@ -47,6 +47,7 @@ export const deleteComplaint = async (req: Request, res: Response) => {
         text: `Your Complaint with this ${complaint._id} Complaint Id at InvertisCare is Deleted Successfully.`,
       });
     }
+
     res.status(200).json({
       status: "success",
       message: "Complaint Deleted Successfully.",

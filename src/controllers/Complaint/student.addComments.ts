@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Complaint from "../../model/student.complaint";
 import Comment from "../../model/complaint.comment";
 import { Student } from "../../model/student.user";
+import HODNotification from "../../model/hod.notifications";
 export const addComment = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
@@ -20,6 +21,11 @@ export const addComment = async (req: Request, res: Response) => {
       studentRefId: student?._id,
       complaintId: compId,
       commentByHOD: comment,
+    });
+    await HODNotification.create({
+      HODId: complaint.assignedTo,
+      message: `A new Comment added with complaint Id: ${complaint._id} `,
+      type: "Complaint Update",
     });
     res.status(200).json({
       status: "success",

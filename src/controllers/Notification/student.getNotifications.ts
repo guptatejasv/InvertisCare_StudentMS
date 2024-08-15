@@ -17,6 +17,7 @@ export const getNotifications = async (req: Request, res: Response) => {
     const notifications = await Notification.find({ studentId: userId });
     res.status(200).json({
       status: "success",
+      results: notifications.length,
       data: notifications,
     });
   } catch (err) {

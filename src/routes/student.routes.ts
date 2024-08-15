@@ -15,6 +15,7 @@ import { getNotifications } from "../controllers/Notification/student.getNotific
 import { readNotification } from "../controllers/Notification/student.markReadNotification";
 import { getComments } from "../controllers/Complaint/student.getComments";
 import { getHODs } from "../controllers/Complaint/student.getHODs";
+import { addComment } from "../controllers/Complaint/student.addComments";
 
 const router = Router();
 
@@ -31,6 +32,8 @@ router.delete("/student/deleteComplaint/:id", verify_token, deleteComplaint);
 router.patch("/student/updateComplaint/:id", verify_token, updateComplaint);
 router.get("/student/getNotifications", verify_token, getNotifications);
 router.patch("/student/readNotification/:id", verify_token, readNotification);
+router.post("/student/addComment/:id", verify_token, addComment);
 router.get("/student/getComments/:id", verify_token, getComments);
+
 router.get("/student/getHODs", verify_token, getHODs);
 export default router;

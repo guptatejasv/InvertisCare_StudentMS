@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Complaint from "../../model/student.complaint";
 import { transporter } from "../../helper/nodemailer";
 import { Student } from "../../model/student.user";
+import HODNotification from "../../model/hod.notifications";
 
 export const fileComplaint = async (req: Request, res: Response) => {
   try {
@@ -57,6 +58,11 @@ export const fileComplaint = async (req: Request, res: Response) => {
         text: `Your Complaint at InvertisCare is sumitted Successfully.\n Here is the ${complaint._id} Complaint Id. \nPlease keep it save for future reference.`,
       });
     }
+    await HODNotification.create({
+      HODId: assignedTo,
+      message: `A new Complaint with ${complaint._id} is assigned to you.`,
+      type: "Complaint Update",
+    });
 
     res.status(201).json({
       status: "success",
