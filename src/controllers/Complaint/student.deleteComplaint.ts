@@ -21,6 +21,7 @@ export const deleteComplaint = async (req: Request, res: Response) => {
 
     // Find the complaint by ID and ensure it belongs to the user
     const complaint = await Complaint.findById(compId);
+
     if (!complaint) {
       return res.status(404).json({
         status: "fail",
