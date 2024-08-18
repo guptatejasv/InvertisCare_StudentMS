@@ -20,6 +20,7 @@ import { forgetPassword } from "../controllers/Authentication/student.forgetPass
 import { resetPassword } from "../controllers/Authentication/student.resetPassword";
 import { deleteComment } from "../controllers/Complaint/student.deleteComment";
 import { getStudents } from "../controllers/student.getAllStudent";
+import { search } from "../controllers/student.search";
 
 const router = Router();
 
@@ -43,4 +44,5 @@ router.get("/student/getComments/:id", verify_token, getComments);
 router.delete("/student/deleteComment/:id", verify_token, deleteComment);
 router.get("/student/getStudents", getStudents);
 router.get("/student/getHODs", verify_token, getHODs);
+router.post("/student/search", verify_token, search);
 export default router;
