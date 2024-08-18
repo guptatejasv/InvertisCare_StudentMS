@@ -4,7 +4,7 @@ import { Student } from "../model/student.user";
 export const getStudents = async (req: Request, res: Response) => {
   try {
     const checkUser = await Student.find();
-
+    console.log(checkUser);
     res.status(200).json({
       status: "success",
       checkUser,
