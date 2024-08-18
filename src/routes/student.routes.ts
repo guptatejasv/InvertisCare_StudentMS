@@ -19,14 +19,15 @@ import { addComment } from "../controllers/Complaint/student.addComments";
 import { forgetPassword } from "../controllers/Authentication/student.forgetPassword";
 import { resetPassword } from "../controllers/Authentication/student.resetPassword";
 import { deleteComment } from "../controllers/Complaint/student.deleteComment";
+import { getStudents } from "../controllers/student.getAllStudent";
 
 const router = Router();
 
 router.post("/auth/student/register", register);
 router.post("/auth/student/login", login);
 router.post("/auth/student/logout", verify_token, logout);
-router.post("/auth/forgetPassword", verify_token, forgetPassword);
-router.post("/auth/resetPassword", verify_token, resetPassword);
+router.post("/auth/forgetPassword", forgetPassword);
+router.patch("/auth/resetPassword/:token", resetPassword);
 router.get("/student/getProfile", verify_token, getProfile);
 router.patch("/student/updateProfile", verify_token, updateProfile);
 router.delete("/student/deleteProfile", verify_token, deleteProfile);
@@ -40,6 +41,6 @@ router.patch("/student/readNotification/:id", verify_token, readNotification);
 router.post("/student/addComment/:id", verify_token, addComment);
 router.get("/student/getComments/:id", verify_token, getComments);
 router.delete("/student/deleteComment/:id", verify_token, deleteComment);
-
+router.get("/student/getStudents", getStudents);
 router.get("/student/getHODs", verify_token, getHODs);
 export default router;

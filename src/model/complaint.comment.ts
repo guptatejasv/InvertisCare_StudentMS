@@ -9,6 +9,7 @@ export interface IComment extends Document {
   commentByHOD?: string;
   commentBYDean?: string;
   commentByChief?: string;
+  commentByStudent?: string;
   isDeleted?: boolean;
   isBlocked?: boolean;
   isBlockedBy?: ObjectId;
@@ -37,6 +38,9 @@ const ComplaintSchema: Schema = new Schema(
       type: String,
     },
     commentBYChief: {
+      type: String,
+    },
+    commentByStudent: {
       type: String,
     },
     isDeleted: {
