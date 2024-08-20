@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import Complaint, { IComplaint } from "../model/student.complaint";
-
+import mongoose from "mongoose";
 export const search = async (req: Request, res: Response) => {
   try {
     const { complaintId, status, subject, description } = req.query;
-
-    let query: Record<string, unknown> = {};
+    const userId = req.user.id;
+    const userIdObject = new mongoose.Types.ObjectId(userId);
+    let query: Record<string, unknown> = { studentRefId: userIdObject };
 
     if (complaintId) query._id = complaintId;
     if (status) query.status = { $regex: status, $options: "i" }; // Case-insensitive search
