@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Student } from "../../model/student.user";
 import bcrypt from "bcryptjs";
-
+import { transporter } from "../../helper/nodemailer";
 export const register = async (req: Request, res: Response) => {
   try {
     const { studentId, email, password } = req.body;
@@ -29,7 +29,12 @@ export const register = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
     });
-
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: "InvertisCare: Registration Successful!",
+      text: "You have successfully registered at InvertisCare. Please Login to the InvertisCare to complete the profile.",
+    });
     res.status(201).json({
       status: "success",
       message: "User created successfully.",
