@@ -1,0 +1,91 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title InvertisCare - Student Complaint Reporting Portal
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
+    link(rel="stylesheet", href="css/style.css")
+  body
+    // Header Section
+    header
+      nav.navbar
+        .container
+          a.navbar-brand(href="#") InvertisCare
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link(href="#overview") Overview
+            li.nav-item
+              a.nav-link(href="#services") Services
+            li.nav-item
+              a.nav-link(href="#contact") Contact
+
+    // Hero Section
+    section.hero
+      .container
+        h1 Welcome to InvertisCare
+        p Your reliable portal for reporting and resolving student complaints.
+        a.btn.btn-primary(href="/register") Get Started
+
+    // Overview Section
+    section#overview.overview
+      .container
+        h2 About InvertisCare
+        p InvertisCare is an efficient platform designed to streamline the process of reporting and managing student complaints. Our goal is to ensure that student concerns are addressed promptly and effectively.
+        ul.features
+          li
+            i.fa.fa-user-graduate
+            span Student-Focused
+          li
+            i.fa.fa-users-cog
+            span Multi-Department Support
+          li
+            i.fa.fa-shield-alt
+            span Secure and Confidential
+
+    // Services Section
+    section#services.services
+      .container
+        h2 Our Services
+        .row
+          .col.service
+            i.fa.fa-clipboard-list
+            h3 Report a Complaint
+            p Easily report your issues with a simple form.
+          .col.service
+            i.fa.fa-tasks
+            h3 Track Complaints
+            p Monitor the status of your complaints in real-time.
+          .col.service
+            i.fa.fa-comments
+            h3 Feedback and Support
+            p Receive feedback and communicate with responsible departments.
+
+    // Contact Section
+    section#contact.contact
+      .container
+        h2 Get in Touch
+        p For any queries or support, feel free to reach out to us.
+        form(action="/contact", method="POST")
+          .form-group
+            label(for="name") Name
+            input#name(type="text", name="name", required)
+          .form-group
+            label(for="email") Email
+            input#email(type="email", name="email", required)
+          .form-group
+            label(for="message") Message
+            textarea#message(name="message", required)
+          button.btn.btn-primary(type="submit") Send Message
+
+    // Footer Section
+    footer
+      .container
+        p &copy; 2024 InvertisCare. All rights reserved.
+        ul.social
+          li
+            a(href="https://facebook.com") i.fa.fa-facebook
+          li
+            a(href="https://twitter.com") i.fa.fa-twitter
+          li
+            a(href="https://linkedin.com") i.fa.fa-linkedin
