@@ -48,6 +48,7 @@ const AuthSchema: Schema = new Schema(
     },
     photo: {
       type: String,
+      default: "default.jpg",
     },
     name: {
       type: String,

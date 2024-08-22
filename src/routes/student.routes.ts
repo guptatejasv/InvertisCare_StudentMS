@@ -21,6 +21,11 @@ import { resetPassword } from "../controllers/Authentication/student.resetPasswo
 import { deleteComment } from "../controllers/Complaint/student.deleteComment";
 import { getStudents } from "../controllers/student.getAllStudent";
 import { search } from "../controllers/student.search";
+import { resizeUserPhoto, uploadUserPhoto } from "../helper/multer";
+import {
+  resizeCompPhotos,
+  uploadCompPhotos,
+} from "../helper/multimulterCompImg";
 
 const router = Router();
 
@@ -30,9 +35,21 @@ router.post("/auth/student/logout", verify_token, logout);
 router.post("/auth/forgetPassword", forgetPassword);
 router.patch("/auth/resetPassword/:token", resetPassword);
 router.get("/student/getProfile", verify_token, getProfile);
-router.patch("/student/updateProfile", verify_token, updateProfile);
+router.patch(
+  "/student/updateProfile",
+  verify_token,
+  uploadUserPhoto,
+  resizeUserPhoto,
+  updateProfile
+);
 router.delete("/student/deleteProfile", verify_token, deleteProfile);
-router.post("/student/fileComplaint", verify_token, fileComplaint);
+router.post(
+  "/student/fileComplaint",
+  verify_token,
+  uploadCompPhotos,
+  resizeCompPhotos,
+  fileComplaint
+);
 router.get("/student/getAllComplaints", verify_token, getAllComplaint);
 router.get("/student/getComplaint/:id", verify_token, getSpecificComplaint);
 router.delete("/student/deleteComplaint/:id", verify_token, deleteComplaint);

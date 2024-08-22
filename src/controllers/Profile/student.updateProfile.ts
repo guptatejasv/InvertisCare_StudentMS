@@ -4,7 +4,8 @@ import { Student } from "../../model/student.user";
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
-    const { name, phone, course, year, dob, profilePhoto } = req.body;
+
+    const { name, phone, course, year, dob } = req.body;
     const correctName = name.toUpperCase();
     const checkUser = await Student.findById(userId);
     if (checkUser) {
@@ -24,7 +25,7 @@ export const updateProfile = async (req: Request, res: Response) => {
         course,
         year,
         dob,
-        photo: profilePhoto,
+        photo: req.file?.filename,
       },
       { new: true }
     );
