@@ -14,6 +14,7 @@ export const login = async (req: Request, res: Response) => {
         message: "Please enter Student Id and Password both..",
       });
     }
+
     const user = await Student.findOne({ studentId }).select("+password");
 
     if (!user || user.isDeleted == true) {
